@@ -5,8 +5,22 @@ import { Movies } from 'pages/Movies';
 import { MovieDetails } from 'pages/MovieDetails';
 import { Cast } from './Cast';
 import { Reviews } from './Reviews';
+import { useState } from 'react';
+
+// const actorsApi = 'movie/569094/credits';
+// const reviewsApi = 'movie/569094/reviews';
 
 export const App = () => {
+  // const [film, setFilm] = useState(null);
+
+  // const getFilm = async arr => {
+  //   setFilm(arr);
+  //   const actorsArr = await getFilm(actorsApi);
+  //   const reviewsArr = await getFilm(reviewsApi);
+  //   console.log('actorsArr :>> ', actorsArr);
+  //   console.log('reviewsArr :>> ', reviewsArr);
+  // };
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
