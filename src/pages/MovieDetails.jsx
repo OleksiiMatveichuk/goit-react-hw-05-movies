@@ -29,7 +29,7 @@ const MovieDetails = () => {
       }
     };
     asyncUse();
-  }, []);
+  }, [movieId]);
 
   return (
     <>

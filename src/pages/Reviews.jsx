@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviewsByFilmId } from 'service/getFilms';
 
-const img = 'https://image.tmdb.org/t/p/w500/';
-
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
 
@@ -19,7 +17,7 @@ const Reviews = () => {
       }
     };
     asyncUse();
-  }, []);
+  }, [movieId]);
 
   return (
     <>

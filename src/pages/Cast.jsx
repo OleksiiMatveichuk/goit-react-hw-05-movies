@@ -21,7 +21,7 @@ const Cast = () => {
       }
     };
     asyncUse();
-  }, []);
+  }, [movieId]);
 
   return (
     <>
