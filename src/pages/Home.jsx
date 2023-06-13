@@ -1,5 +1,6 @@
 import { HomeList } from 'components/HomeList';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getFilms } from 'service/getFilms';
 
 const TrendingFilms = 'trending/all/day';
@@ -7,6 +8,8 @@ const filmByID = 'movie/569094';
 
 export const Home = () => {
   const [films, setFilms] = useState([]);
+
+  const location = useLocation();
 
   useEffect(() => {
     const asyncUse = async () => {
