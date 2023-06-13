@@ -19,3 +19,12 @@ code {
   background-color: rgba(68, 68, 232, 0.792);
   width: 100px;
 }
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+a {background-color: rgba(215, 215, 215, 0.764);}
