@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { getFilms } from 'service/getFilms';
-import { MovieDetails } from './MovieDetails';
+import { getFilmsForSearch } from 'service/getFilms';
 
-export const Movies = () => {
+const Movies = () => {
   const [queri, setQueri] = useState('');
-  const [search, setSearch] = useState(null);
   const [films, setFilms] = useState(null);
-  // useSearchParams
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search');
 
   const location = useLocation();
 
-  // const api = `search/movie`;
   const handleSubmit = e => {
     e.preventDefault();
-    const { value } = e.target.search;
-    setSearch(value);
+    setSearchParams({ search: queri });
   };
 
   useEffect(() => {
@@ -24,11 +21,8 @@ export const Movies = () => {
         return;
       }
       try {
-        console.log('search :>> ', search);
-        const api = `${search}/movie`;
-        const { results } = await getFilms(api);
+        const { results } = await getFilmsForSearch(search);
         setFilms(results);
-        console.log('data :>> ', results);
       } catch (err) {
         console.log(err.message);
       }
@@ -66,7 +60,4 @@ export const Movies = () => {
     </>
   );
 };
-
-// переход goBack зі сторінки Home (як перекинути location)
-// помилка пошука на Movies
-// useSearchParams
+export default Movies;

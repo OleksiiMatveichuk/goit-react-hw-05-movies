@@ -6,22 +6,27 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom';
-import { getFilms } from 'service/getFilms';
+import { getFilmById } from 'service/getFilms';
 
 const img = 'https://image.tmdb.org/t/p/w500/';
+const noImg =
+  'https://st4.depositphotos.com/4320021/23631/v/450/depositphotos_236319394-stock-illustration-photo-coming-soon-picture-frame.jpg';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [film, setFilm] = useState(null);
 
   const location = useLocation();
 
   const { movieId } = useParams();
-  const api = `movie/${movieId}`;
 
   useEffect(() => {
     const asyncUse = async () => {
-      const data = await getFilms(api);
-      setFilm(data);
+      try {
+        const data = await getFilmById(movieId);
+        setFilm(data);
+      } catch (err) {
+        console.log(err.message);
+      }
     };
     asyncUse();
   }, []);
@@ -31,7 +36,10 @@ export const MovieDetails = () => {
       <Link to={location.state ?? '/'}>Go back</Link>
       {film && (
         <div>
-          <img src={`${img}${film.poster_path}`} alt={film.title} />
+          <img
+            src={film.poster_path ? `${img}${film.poster_path}` : noImg}
+            alt={film.title}
+          />
           <div>
             <ul>
               <li>
@@ -74,3 +82,5 @@ export const MovieDetails = () => {
     </>
   );
 };
+
+export default MovieDetails;

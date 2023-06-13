@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFilms } from 'service/getFilms';
+import { getCastByFilmId } from 'service/getFilms';
 
 const img = 'https://image.tmdb.org/t/p/w500/';
+const noImg =
+  'https://st4.depositphotos.com/4320021/23631/v/450/depositphotos_236319394-stock-illustration-photo-coming-soon-picture-frame.jpg';
 
-export const Cast = () => {
+const Cast = () => {
   const [actors, setActors] = useState(null);
 
   const { movieId } = useParams();
-  const api = `movie/${movieId}/credits`;
 
   useEffect(() => {
     const asyncUse = async () => {
-      const { cast } = await getFilms(api);
-      setActors(cast);
-      console.log('data :>> ', cast);
+      try {
+        const { cast } = await getCastByFilmId(movieId);
+        setActors(cast);
+      } catch (err) {
+        console.log(err.message);
+      }
     };
     asyncUse();
   }, []);
@@ -25,7 +29,10 @@ export const Cast = () => {
         {actors &&
           actors.map(el => (
             <li key={el.id}>
-              <img src={`${img}${el.profile_path}`} alt="" />
+              <img
+                src={el.profile_path ? `${img}${el.profile_path}` : noImg}
+                alt=""
+              />
               <h3>{el.name}</h3>
               <p>{el.character}</p>
             </li>
@@ -34,3 +41,4 @@ export const Cast = () => {
     </>
   );
 };
+export default Cast;

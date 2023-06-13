@@ -4,22 +4,30 @@ const api_key = '8aba4e3419a44727b7eb66f35fce4fa2';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 axios.defaults.params = {
   api_key,
+  language: 'en-US',
 };
 
-export const getFilms = async string => {
-  const { data } = await axios.get(string);
-  //   console.log('data :>> ', data);
+export const getTrendingFilms = async () => {
+  const { data } = await axios.get('trending/all/day');
   return data;
 };
 
-//   url: 'search/movie',
-//   params: { include_adult: 'false', language: 'en-US', page: '1' },
+export const getFilmsForSearch = async query => {
+  const { data } = await axios.get('search/movie', { params: { query } });
+  return data;
+};
 
-//   url: 'movie/movie_id',
-//   params: { language: 'en-US' },
+export const getCastByFilmId = async id => {
+  const { data } = await axios.get(`movie/${id}/credits`);
+  return data;
+};
 
-//   url: 'movie/movie_id/credits',
-//   params: { language: 'en-US' },
+export const getReviewsByFilmId = async id => {
+  const { data } = await axios.get(`movie/${id}/reviews`);
+  return data;
+};
 
-//   url: 'movie/movie_id/reviews',
-//   params: { language: 'en-US', page: '1' },
+export const getFilmById = async id => {
+  const { data } = await axios.get(`movie/${id}`);
+  return data;
+};

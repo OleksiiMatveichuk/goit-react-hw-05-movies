@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFilms } from 'service/getFilms';
+import { getReviewsByFilmId } from 'service/getFilms';
 
 const img = 'https://image.tmdb.org/t/p/w500/';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState(null);
 
   const { movieId } = useParams();
-  const api = `movie/${movieId}/reviews`;
 
   useEffect(() => {
     const asyncUse = async () => {
-      const { results } = await getFilms(api);
-      setReviews(results);
-      console.log('results :>> ', results);
+      try {
+        const { results } = await getReviewsByFilmId(movieId);
+        setReviews(results);
+      } catch (err) {
+        console.log(err.message);
+      }
     };
     asyncUse();
   }, []);
@@ -34,3 +36,4 @@ export const Reviews = () => {
     </>
   );
 };
+export default Reviews;
